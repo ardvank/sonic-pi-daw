@@ -1,5 +1,5 @@
 # Simple drum machine
-#--------------------
+
 use_bpm 120 
 
 
@@ -15,7 +15,7 @@ snare = :elec_mid_snare
 kick  = :elec_hollow_kick
 
 
-# patterns | 0 = rest, 1 = trigger, 2 or more = trigger chance
+# patterns, 0 = rest, 1 = trigger, 2 or more = trigger probability
 snare_pattern   =  [ 0, 0, 0, 0,  1, 0, 0, 0,  0, 0, 0, 0,  1, 0, 0, 6 ]
 hihat_pattern   =  [ 1, 5, 1, 6,  1, 5, 1, 5,  1, 5, 1, 5,  1, 2, 1, 3 ]
 kick_pattern    =  [ 1, 0, 9, 0,  1, 0, 0, 0,  1, 0, 1, 0,  1, 0, 5, 0 ]
@@ -29,7 +29,6 @@ define :play_sample_pattern do |samp, sample_pattern, velocity_pattern|
     if one_in(element)
       sample samp, amp: velocity_pattern[index]
     end
-    # swing
     if(index % 2) == 0
       sleep (d + swing_time)
     else
@@ -40,14 +39,14 @@ end
 
 
 # Play
-live_loop :_hihat do
+live_loop :hihat do
   play_sample_pattern hihat, hihat_pattern, hihat_velo
 end
 
-live_loop :_snare do
+live_loop :snare do
   play_sample_pattern snare, snare_pattern, snare_velo
 end
 
-live_loop :_kick do
+live_loop :kick do
   play_sample_pattern kick, kick_pattern, kick_velo
 end
